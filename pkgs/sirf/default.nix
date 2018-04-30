@@ -3,6 +3,8 @@
 , cmake
 , boost
 , fftw
+, fftwFloat
+, hdf5
 , itk
 , swig
 , gadgetron
@@ -11,30 +13,25 @@
 , stir
 }:
 
-let
-  nixpkgsVer = builtins.readFile <nixpkgs/.version>;
-
-  ver = "v0.9.0";
-  sha256 = "1b2pzad0nih885vhinwxw3769c0q25vh9wl42k10yz54czi88vqf";
-
-in stdenv.mkDerivation rec {
-  name = "sirf-" + ver;
+stdenv.mkDerivation rec {
+  name = "sirf-v1.0.1-pre";
 
   src = fetchFromGitHub {
     owner = "CCPPETMR";
     repo = "SIRF";
-    rev = ver;
-    inherit sha256;
+    rev = "4a0950a";  # master: 20180428
+    sha256 = "07yxyq2bn9hxh64wx68l04xkkwdnnkfd6svl2mvyxaq2p8sfdj51";
+    fetchSubmodules = true;
   };
 
-  CMAKE_MODULE_PATH="${gadgetron}/share/gadgetron/cmake";
+  # patches = [ ./FindFFTW3.patch ];
+  patches = [ ./find_fftwf.patch ];
   cmakeFlags = [
     "-DBUILD_PYTHON=ON"
     "-DSTIR_DIR=${stir}/lib/cmake"
-    "-DCMAKE_MODULE_PATH=${gadgetron}/share/gadgetron/cmake"
+    "-DFFTW3f_DIR=${fftwFloat.dev}/lib/cmake/fftw3"
   ];
   preConfigure = ''
-    #rm -rf build
     cmakeFlags="-DPYTHON_DEST=$out/${pythonPackages.python.sitePackages} $cmakeFlags"
   '';
 
@@ -42,9 +39,14 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ boost cmake itk ];
-  propagatedBuildInputs = [ gadgetron ismrmrd swig swig ]
-    ++ ( with pythonPackages; [ python numpy ] );
+  buildInputs = [ boost cmake itk fftwFloat hdf5 swig ];
+  # buildInputs = [ boost cmake itk fftw fftwFloat hdf5 swig ];
+  propagatedBuildInputs = [ gadgetron ismrmrd stir ]
+    ++ ( with pythonPackages; [
+      python
+      numpy scipy matplotlib
+      docopt h5py /*libxml2*/ psutil nose
+    ] );
 
   meta = {
     # description = "Software for Tomographic Image Reconstruction";

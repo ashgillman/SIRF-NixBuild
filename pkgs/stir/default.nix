@@ -10,19 +10,26 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "UCL";
     repo = "STIR";
-    rev = "a470096";  # master: 20180123
-    sha256 = "0g0aw4alj2ci4gj6g623zylw9hs1i9s52dvay3g76szfya4fw70x";
+    rev = "6108fcb";  # master: 20180424
+    sha256 = "0qiriaxhcqvw32nb6mxgicw3cvikw16w9vfl1r47zffa4vyp1gnc";
   };
 
   buildInputs = [ boost cmake itk /*openmpi*/ ];
   propagatedBuildInputs = [ swig ]
     ++ stdenv.lib.optional buildPython [ python numpy ];
 
+  # This is a hackaround because STIR requires source available at runtime..
+  setSourceRoot = ''
+    sourceRoot=$prefix/src
+    mkdir -p $sourceRoot
+    cp -r STIR-*-src/* $sourceRoot
+  '';
   cmakeFlags = [
+    "-DBUILD_SHARED_LIBS=ON"
+    "-DBUILD_SWIG_PYTHON=ON"
     "-DGRAPHICS=PGM"
     "-DSTIR_MPI=OFF"
     "-DSTIR_OPENMP=${if stdenv.isDarwin then "OFF" else "ON"}"
-    "-DBUILD_SWIG_PYTHON=ON"
   ];
   preConfigure = stdenv.lib.optionalString buildPython ''
     cmakeFlags="-DPYTHON_DEST=$out/${python.sitePackages} $cmakeFlags"
@@ -31,6 +38,7 @@ stdenv.mkDerivation rec {
     # add scripts to bin
     find $src/scripts -type f ! -path "*maintenance*" -name "*.sh"  -exec cp -fn {} $out/bin \;
     find $src/scripts -type f ! -path "*maintenance*" ! -name "*.*" -exec cp -fn {} $out/bin \;
+    rm -r $sourceRoot/build
   '';
 
   pythonPath = "";  # Makes python.buildEnv include libraries

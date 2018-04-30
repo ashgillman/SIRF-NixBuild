@@ -42,18 +42,24 @@ in stdenv.mkDerivation rec {
   ];
     # "-DBUILD_PYTHON=ON"
   # cmakeFlags="-DPYTHON_DEST=$out/${pythonPackages.python.sitePackages} $cmakeFlags"
+  postInstall = ''
+    cp $prefix/share/gadgetron/config/gadgetron.xml.example \
+       $prefix/share/gadgetron/config/gadgetron.xml
+  '';
 
-  pythonPath = "";  # Makes python.buildEnv include libraries
+  # pythonPath = "";  # Makes python.buildEnv include libraries
 
   enableParallelBuilding = true;
 
   buildInputs =
     [ cmake pkgconfig ace armadillo boost dcmtk #openblas cudatoolkit
+      fftw fftwFloat
       fftw.dev fftwFloat.dev git gfortran gtest hdf5-cpp liblapack
-    ];
-  propagatedBuildInputs =
-    [ ismrmrd ]
+    ]
     ++ ( with pythonPackages; [ python boost numpy ] );
+  propagatedBuildInputs =
+    [ ismrmrd ];
+    # ++ ( with pythonPackages; [ python boost numpy ] );
 
   meta = {
     description = "The Gadgetron is an open source framework for medical image reconstruction.";

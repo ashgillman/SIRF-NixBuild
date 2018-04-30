@@ -1,0 +1,16 @@
+diff --git a/src/xGadgetron/CMakeLists.txt b/src/xGadgetron/CMakeLists.txt
+index 8d1f9fb..b93125d 100644
+--- a/src/xGadgetron/CMakeLists.txt
++++ b/src/xGadgetron/CMakeLists.txt
+@@ -28,7 +28,10 @@ find_package(ISMRMRD)
+ if (ISMRMRD_FOUND)
+   set(CMAKE_MODULE_PATH "${ISMRMRD_DIR}")
+ 
+-  find_package(FFTW3 COMPONENTS single REQUIRED)
++  find_package(FFTW3f COMPONENTS single REQUIRED)
++  set(FFTW3_LIBRARIES ${FFTW3f_LIBRARIES})
++  set(FFTW3_INCLUDE_DIR ${FFTW3f_INCLUDE_DIR})
++  message("Found FFTW3: ${FFTW3_LIBRARIES}")
+ 
+   if (SIRF_INSTALL_DEPENDENCIES AND WIN32)
+     set(FFTW3_DLL_DIR ${FFTW3_INCLUDE_DIR})
