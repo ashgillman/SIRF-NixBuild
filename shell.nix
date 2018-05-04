@@ -21,6 +21,7 @@ in stdenv.mkDerivation {
   #   python numpy scipy matplotlib docopt
   # ];
   SIRF_PATH=sirf.src;
+  MPLBACKEND="Gt4Agg";
   shellHook = ''
     export PYTHONPATH=${sirf}/python:$PYTHONPATH
   '';

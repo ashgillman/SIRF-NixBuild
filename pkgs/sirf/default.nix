@@ -9,6 +9,7 @@
 , swig
 , gadgetron
 , ismrmrd
+, petmr-rd-tools
 , pythonPackages
 , stir
 }:
@@ -41,10 +42,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ boost cmake itk fftwFloat hdf5 swig ];
   # buildInputs = [ boost cmake itk fftw fftwFloat hdf5 swig ];
-  propagatedBuildInputs = [ gadgetron ismrmrd stir ]
+  propagatedBuildInputs = [ gadgetron ismrmrd petmr-rd-tools stir ]
     ++ ( with pythonPackages; [
       python
-      numpy scipy matplotlib
+      numpy scipy (matplotlib.override { enableQt = true; })
       docopt h5py /*libxml2*/ psutil nose
     ] );
 
