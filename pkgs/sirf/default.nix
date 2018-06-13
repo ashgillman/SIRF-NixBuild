@@ -35,6 +35,10 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     cmakeFlags="-DPYTHON_DEST=$out/${pythonPackages.python.sitePackages} $cmakeFlags"
   '';
+  postInstall = ''
+    mkdir -p $(dirname $out/${pythonPackages.python.sitePackages})
+    mv $out/python $out/${pythonPackages.python.sitePackages}
+  '';
 
   pythonPath = ""; # Makes python.buildEnv include libraries
 
