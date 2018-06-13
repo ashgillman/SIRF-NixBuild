@@ -20,9 +20,28 @@ stdenv.mkDerivation rec {
 
   # This is a hackaround because STIR requires source available at runtime..
   setSourceRoot = ''
+    actualSourceRoot=;
+    for i in *;
+    do
+        if [ -d "$i" ]; then
+            case $dirsBefore in
+                *\ $i\ *)
+
+                ;;
+                *)
+                    if [ -n "$actualSourceRoot" ]; then
+                        echo "unpacker produced multiple directories";
+                        exit 1;
+                    fi;
+                    actualSourceRoot="$i"
+                ;;
+            esac;
+        fi;
+    done;
+
     sourceRoot=$prefix/src
     mkdir -p $sourceRoot
-    cp -r STIR-*-src/* $sourceRoot
+    cp -r $actualSourceRoot -T $sourceRoot
   '';
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
