@@ -13,7 +13,9 @@ rec {
   ismrmrd = callPackage ./pkgs/ismrmrd {};
   # gadgetron = callPackage ./pkgs/gadgetron { inherit dcmtk plplot pythonPackages ismrmrd; };
   gadgetron = callPackage ./pkgs/gadgetron {
+    inherit pythonPackages;
     inherit dcmtk fftw fftwFloat /*plplot*/ ismrmrd;
+    boost = boost164;
   }; # python 3 not yet supported
   petmr-rd-tools = callPackage ./pkgs/petmr-rd-tools {};
   stir = callPackage ./pkgs/stir { inherit (pythonPackages) python numpy; };

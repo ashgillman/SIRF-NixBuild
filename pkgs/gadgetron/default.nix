@@ -23,8 +23,9 @@
 }:
 
 let
-  ver = "v3.15.0";
-  sha256 = "18c1qdx0krs83ij95398nzdylv54fw61a7dyyybv82lgaifnnyn0";
+  # ver = "v3.15.0";
+  ver = "20180613";
+  sha256 = "01p45437h2i3k0chzcg5c8bh3s0m2w0jjxaxzzfyfrk3rv757qg3";
 
 in stdenv.mkDerivation rec {
   name = "gadgetron-" + ver;
@@ -32,13 +33,16 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "gadgetron";
     repo = "gadgetron";
-    rev = ver;
+    rev = "8c094c6";
+    # rev = ver;
     inherit sha256;
   };
 
   cmakeFlags = [
     # "-DPLPLOT_PATH=${plplot}/include"
     "-DBLAS_openblas_LIBRARY=${openblas}/lib/libopenblas.so"
+    "-DBUILD_PYTHON_SUPPORT=OFF"
+    "-DBUILD_MATLAB_SUPPORT=OFF"
   ];
     # "-DBUILD_PYTHON=ON"
   # cmakeFlags="-DPYTHON_DEST=$out/${pythonPackages.python.sitePackages} $cmakeFlags"

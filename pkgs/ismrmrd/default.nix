@@ -7,8 +7,9 @@
 }:
 
 let
-  ver = "v1.3.3";
-  sha256 = "0vyif4l3k5ad07y6ycjzqak24ivpf5848lw9g570k2pj98i7r223";
+  ver = "20180525";
+  rev = "1c8b53c";
+  sha256 = "1chcr238gjjhaz46q177kra328d3z92grlz45n3n75gpl1kfhxd5";
 
 in stdenv.mkDerivation rec {
   name = "ismrmrd-" + ver;
@@ -16,8 +17,7 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ismrmrd";
     repo = "ismrmrd";
-    rev = ver;
-    inherit sha256;
+    inherit sha256 rev;
   };
 
   enableParallelBuilding = true;
