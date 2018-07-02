@@ -25,7 +25,6 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  # patches = [ ./FindFFTW3.patch ];
   patches = [ ./find_fftwf.patch ];
   cmakeFlags = [
     "-DBUILD_PYTHON=ON"

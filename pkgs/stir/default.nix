@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ swig ]
     ++ stdenv.lib.optional buildPython [ python numpy ];
 
-  # This is a hackaround because STIR requires source available at runtime..
+  # This is a hackaround because STIR requires source available at runtime.
   setSourceRoot = ''
     actualSourceRoot=;
     for i in *;
@@ -39,8 +39,10 @@ stdenv.mkDerivation rec {
         fi;
     done;
 
+    # "Install" location for source
     sourceRoot=$prefix/src
     mkdir -p $sourceRoot
+    # Put the actual source there
     cp -r $actualSourceRoot -T $sourceRoot
   '';
   cmakeFlags = [
@@ -57,6 +59,8 @@ stdenv.mkDerivation rec {
     # add scripts to bin
     find $src/scripts -type f ! -path "*maintenance*" -name "*.sh"  -exec cp -fn {} $out/bin \;
     find $src/scripts -type f ! -path "*maintenance*" ! -name "*.*" -exec cp -fn {} $out/bin \;
+
+    # Remove the temporary build
     rm -r $sourceRoot/build
   '';
 
