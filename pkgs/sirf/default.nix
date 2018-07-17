@@ -15,13 +15,13 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "sirf-v1.0.1-pre";
+  name = "sirf-v1.1.2-pre";
 
   src = fetchFromGitHub {
     owner = "CCPPETMR";
     repo = "SIRF";
-    rev = "4a0950a";  # master: 20180428
-    sha256 = "07yxyq2bn9hxh64wx68l04xkkwdnnkfd6svl2mvyxaq2p8sfdj51";
+    rev = "163c3a6";  # master: 20180623
+    sha256 = "1cz0j8lg93z29a4smswmpxbmjp6n9hl95idmr09y1c99fyz0pad3";
     fetchSubmodules = true;
   };
 

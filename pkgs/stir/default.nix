@@ -5,13 +5,13 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "stir-3.1-pre";
+  name = "stir-4.0-pre";
 
   src = fetchFromGitHub {
     owner = "UCL";
     repo = "STIR";
-    rev = "6108fcb";  # master: 20180424
-    sha256 = "0qiriaxhcqvw32nb6mxgicw3cvikw16w9vfl1r47zffa4vyp1gnc";
+    rev = "4e0a2e8";  # master: 20180630
+    sha256 = "1cpq1msypby7cvxfn4pq2ii46wx36zskjrhxq7psbqyap620g3pi";
   };
 
   buildInputs = [ boost cmake itk /*openmpi*/ ];
