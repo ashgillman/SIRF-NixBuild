@@ -15,6 +15,7 @@ rec {
   gadgetron = callPackage ./pkgs/gadgetron {
     inherit pythonPackages;
     inherit dcmtk fftw fftwFloat /*plplot*/ ismrmrd;
+    liblapack = pkgs.liblapackWithoutAtlas;
     boost = boost164;
   }; # python 3 not yet supported
   petmr-rd-tools = callPackage ./pkgs/petmr-rd-tools {};
