@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "UCL";
     repo = "STIR";
-    rev = "4e0a2e8";  # master: 20180630
-    sha256 = "1cpq1msypby7cvxfn4pq2ii46wx36zskjrhxq7psbqyap620g3pi";
+    rev = "38876a9";  # master: 20181029
+    sha256 = "1hsrp1ydark6a95zszngzsnrwyxxp2vig481y124f8bw9z8y7p9j";
   };
 
   buildInputs = [ boost cmake itk /*openmpi*/ ];
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     cp -r $actualSourceRoot -T $sourceRoot
   '';
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
+    #"-DBUILD_SHARED_LIBS=ON"
     "-DBUILD_SWIG_PYTHON=ON"
     "-DGRAPHICS=PGM"
     "-DSTIR_MPI=OFF"
