@@ -10,6 +10,7 @@ rec {
   glog = callPackage ./pkgs/glog {};
   # plplot = callPackage ./pkgs/plplot {};
 
+  niftyreg = callPackage ./pkgs/niftyreg {};
   ismrmrd = callPackage ./pkgs/ismrmrd {};
   # gadgetron = callPackage ./pkgs/gadgetron { inherit dcmtk plplot pythonPackages ismrmrd; };
   gadgetron = callPackage ./pkgs/gadgetron {
@@ -22,6 +23,6 @@ rec {
 
   # sirf = callPackage ./pkgs/sirf { inherit pythonPackages fftw ismrmrd gadgetron stir; };
   sirf = callPackage ./pkgs/sirf {
-    inherit pythonPackages fftw fftwFloat ismrmrd gadgetron petmr-rd-tools stir;
+    inherit pythonPackages fftw fftwFloat niftyreg ismrmrd gadgetron petmr-rd-tools stir;
   };
 }

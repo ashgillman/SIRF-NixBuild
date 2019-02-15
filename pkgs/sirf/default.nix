@@ -7,6 +7,7 @@
 , hdf5
 , itk
 , swig
+, niftyreg
 , gadgetron
 , ismrmrd
 , petmr-rd-tools
@@ -30,6 +31,9 @@ stdenv.mkDerivation rec {
     "-DBUILD_PYTHON=ON"
     "-DSTIR_DIR=${stir}/lib/cmake"
     "-DFFTW3f_DIR=${fftwFloat.dev}/lib/cmake/fftw3"
+    "-DNiftyReg_Source_DIR=${niftyreg}/src"
+    "-DNiftyReg_Binary_DIR=${niftyreg}/bin"
+    "-DNiftyReg_Install_DIR=${niftyreg}"
   ];
   preConfigure = ''
     cmakeFlags="-DPYTHON_DEST=$out/${pythonPackages.python.sitePackages} $cmakeFlags"
@@ -43,7 +47,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ boost cmake itk fftwFloat hdf5 swig ];
+  buildInputs = [ boost cmake itk fftwFloat hdf5 swig niftyreg ];
   # buildInputs = [ boost cmake itk fftw fftwFloat hdf5 swig ];
   propagatedBuildInputs = [ gadgetron ismrmrd petmr-rd-tools stir ]
     ++ ( with pythonPackages; [
