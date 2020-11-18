@@ -15,15 +15,17 @@
 , stir
 }:
 
+let
+  rev = "v2.2.0";
+  sha256 = "0ffdim0anq298nlglys4w2w52721rj96mgk251cs294c5i0dxp6m";
 stdenv.mkDerivation rec {
-  name = "sirf-v1.1.2-pre";
+  name = "sirf-${rev}";
 
   src = fetchFromGitHub {
     owner = "CCPPETMR";
     repo = "SIRF";
-    rev = "v2.2.0";
-    sha256 = "0ffdim0anq298nlglys4w2w52721rj96mgk251cs294c5i0dxp6m";
     fetchSubmodules = true;
+    inherit rev sha256;
   };
 
   #patches = [ ./find_fftwf.patch ];
