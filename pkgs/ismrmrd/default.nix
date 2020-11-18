@@ -8,8 +8,8 @@
 
 let
   ver = "20180525";
-  rev = "1c8b53c";
-  sha256 = "1chcr238gjjhaz46q177kra328d3z92grlz45n3n75gpl1kfhxd5";
+  rev = "v1.4.1";
+  sha256 = "1291k3cd2wvcnb8f4x8vzv9kv3bcjd9wl1654i3cj2hv8vwkda0c";
 
 in stdenv.mkDerivation rec {
   name = "ismrmrd-" + ver;

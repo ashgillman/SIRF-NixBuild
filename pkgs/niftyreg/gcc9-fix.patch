@@ -1,0 +1,35 @@
+diff --git a/reg-lib/cpu/_reg_mind.cpp b/reg-lib/cpu/_reg_mind.cpp
+index 294d21c..11666a7 100644
+--- a/reg-lib/cpu/_reg_mind.cpp
++++ b/reg-lib/cpu/_reg_mind.cpp
+@@ -134,7 +134,7 @@ void GetMINDImageDesciptor_core(nifti_image* inputImage,
+    int mindIndex;
+    DTYPE meanValue, max_desc, descValue;
+ #if defined (_OPENMP)
+-#pragma omp parallel for default(none) \
++#pragma omp parallel for \
+    shared(samplingNbr, maskPtr, meanImgDataPtr, \
+    MINDImgDataPtr) \
+    private(voxelIndex, meanValue, max_desc, descValue, mindIndex)
+@@ -294,7 +294,7 @@ void GetMINDSSCImageDesciptor_core(nifti_image* inputImage,
+    int mindIndex;
+    DTYPE meanValue, max_desc, descValue;
+ #if defined (_OPENMP)
+-#pragma omp parallel for default(none) \
++#pragma omp parallel for \
+    shared(lengthDescriptor, samplingNbr, maskPtr, meanImgDataPtr, \
+    MINDSSCImgDataPtr) \
+    private(voxelIndex, meanValue, max_desc, descValue, mindIndex)
+diff --git a/reg-lib/cpu/_reg_ssd.cpp b/reg-lib/cpu/_reg_ssd.cpp
+index 98d1e20..c7d980f 100755
+--- a/reg-lib/cpu/_reg_ssd.cpp
++++ b/reg-lib/cpu/_reg_ssd.cpp
+@@ -820,7 +820,7 @@ void GetDiscretisedValueSSD_core3D_2(nifti_image *controlPointGridImage,
+ 
+    // Loop over all control points
+ #if defined (_OPENMP)
+-#pragma omp parallel for default(none) \
++#pragma omp parallel for \
+    shared(controlPointGridImage, refImage, warImage, grid2img_vox, blockSize, \
+    padding_value, refBlockValue, mask, refImgPtr, warImgPtr, discretise_radius, \
+    discretise_step, discretisedValue) \

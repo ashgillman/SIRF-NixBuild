@@ -7,9 +7,9 @@
 }:
 
 let
-  ver = "1.5.59";
-  rev = "f673b7837c0824f55dedb1534b32b55bf68a2823";
-  sha256 = "1pjb5iwxspp405kwb86vbyy30gxn426nnxi76s8h1ny5wmcwsh2f";
+  ver = "1.5.68";
+  rev = "99d584e2b8ea0bffe7e65e40c8dc818751782d92";
+  sha256 = "1b3475vp78m661wc96m9y3lfa7xxwmvqx23kbvd71rnb00bh769v";
 
 in stdenv.mkDerivation rec {
   name = "niftyreg-" + ver;
@@ -19,6 +19,8 @@ in stdenv.mkDerivation rec {
     repo = "niftyreg";
     inherit rev sha256;
   };
+
+  patches = [ ./gcc9-fix.patch ];
 
   # This is a hackaround because SIRF requires niftyreg source available at build.
   setSourceRoot = ''

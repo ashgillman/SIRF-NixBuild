@@ -21,19 +21,20 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "CCPPETMR";
     repo = "SIRF";
-    rev = "163c3a6";  # master: 20180623
-    sha256 = "1cz0j8lg93z29a4smswmpxbmjp6n9hl95idmr09y1c99fyz0pad3";
+    rev = "v2.2.0";
+    sha256 = "0ffdim0anq298nlglys4w2w52721rj96mgk251cs294c5i0dxp6m";
     fetchSubmodules = true;
   };
 
-  patches = [ ./find_fftwf.patch ];
+  #patches = [ ./find_fftwf.patch ];
   cmakeFlags = [
     "-DBUILD_PYTHON=ON"
+    "-DDOWNLOAD_ZENODO_TEST_DATA=OFF"
     "-DSTIR_DIR=${stir}/lib/cmake"
     "-DFFTW3f_DIR=${fftwFloat.dev}/lib/cmake/fftw3"
-    "-DNiftyReg_Source_DIR=${niftyreg}/src"
-    "-DNiftyReg_Binary_DIR=${niftyreg}/bin"
-    "-DNiftyReg_Install_DIR=${niftyreg}"
+    "-DNIFTYREG_Source_DIR=${niftyreg}/src"
+    "-DNIFTYREG_Binary_DIR=${niftyreg}/bin"
+    "-DNIFTYREG_DIR=${niftyreg}"
   ];
   preConfigure = ''
     cmakeFlags="-DPYTHON_DEST=$out/${pythonPackages.python.sitePackages} $cmakeFlags"

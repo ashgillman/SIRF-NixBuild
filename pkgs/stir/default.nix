@@ -4,14 +4,16 @@
 , buildPython ? true, python, numpy
 }:
 
-stdenv.mkDerivation rec {
-  name = "stir-4.0-pre";
+let
+  rev = "release_4";
+  sha256 = "1siplks8ciapzbp3jvq8v28gwaz9frhlpzip7crawjzk5sbw46ix";
+in stdenv.mkDerivation rec {
+  name = "stir-${rev}";
 
   src = fetchFromGitHub {
     owner = "UCL";
     repo = "STIR";
-    rev = "38876a9";  # master: 20181029
-    sha256 = "1hsrp1ydark6a95zszngzsnrwyxxp2vig481y124f8bw9z8y7p9j";
+    inherit rev sha256;
   };
 
   buildInputs = [ boost cmake itk /*openmpi*/ ];
@@ -47,7 +49,7 @@ stdenv.mkDerivation rec {
   '';
   cmakeFlags = [
     #"-DBUILD_SHARED_LIBS=ON"
-    "-DBUILD_SWIG_PYTHON=ON"
+    #"-DBUILD_SWIG_PYTHON=ON"
     "-DGRAPHICS=PGM"
     "-DSTIR_MPI=OFF"
     "-DSTIR_OPENMP=${if stdenv.isDarwin then "OFF" else "ON"}"
