@@ -13,8 +13,8 @@ rec {
     #boost = boost164;
   };
   petmr-rd-tools = callPackage ./pkgs/petmr-rd-tools {};
+  cil = callPackage ./pkgs/cil {};
   stir = callPackage ./pkgs/stir { inherit (pythonPackages) python numpy; };
-
   sirf = callPackage ./pkgs/sirf {
     inherit pythonPackages fftw fftwFloat niftyreg ismrmrd gadgetron petmr-rd-tools stir;
   };
