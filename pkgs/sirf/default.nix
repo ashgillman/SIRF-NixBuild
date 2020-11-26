@@ -18,7 +18,7 @@
 let
   rev = "v2.2.0";
   sha256 = "0ffdim0anq298nlglys4w2w52721rj96mgk251cs294c5i0dxp6m";
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "sirf-${rev}";
 
   src = fetchFromGitHub {
@@ -28,7 +28,6 @@ stdenv.mkDerivation rec {
     inherit rev sha256;
   };
 
-  #patches = [ ./find_fftwf.patch ];
   cmakeFlags = [
     "-DBUILD_PYTHON=ON"
     "-DDOWNLOAD_ZENODO_TEST_DATA=OFF"
