@@ -13,13 +13,14 @@ in stdenv.mkDerivation {
   name = "SIRF-build";
   buildInputs = [
     sirf
+    cil
     # cmakeWithGui
     # ace boostAll liblapack openblas armadillo gtest hdf5 itk swig glog
     # dcmtk /*plplot*/ fftw ismrmrd gadgetron
   ];
-  # propagatedBuildInputs = with pythonPackages; [
-  #   python numpy scipy matplotlib docopt
-  # ];
+  propagatedBuildInputs = with python3Packages; [
+    python ipython numpy scipy matplotlib docopt
+  ];
   SIRF_PATH=sirf.src;
   MPLBACKEND="Gt4Agg";
   shellHook = ''
