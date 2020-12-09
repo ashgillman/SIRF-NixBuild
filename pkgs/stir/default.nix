@@ -5,15 +5,16 @@
 }:
 
 let
-  rev = "release_4";
-  sha256 = "1siplks8ciapzbp3jvq8v28gwaz9frhlpzip7crawjzk5sbw46ix";
+  ver = "4.0.2";
+  sha256 = "0fzfm3ki0v2g09jqjakrq3asz69snmnydm3iwcqi6k9rabgn4g7z";
 in stdenv.mkDerivation rec {
-  name = "stir-${rev}";
+  name = "stir-${ver}";
 
   src = fetchFromGitHub {
     owner = "UCL";
     repo = "STIR";
-    inherit rev sha256;
+    rev = "rel_${ver}";
+    inherit sha256;
   };
 
   buildInputs = [ boost cmake itk /*openmpi*/ ];
