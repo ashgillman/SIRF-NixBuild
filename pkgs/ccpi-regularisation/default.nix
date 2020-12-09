@@ -2,21 +2,25 @@
 , fetchFromGitHub
 , cmake
 , python3
+, setuptools
+, cython
+, numpy
 }:
 
 let
-  rev = "a28f794ad3e3c22ddcf4969624fac5ce93c4aa54";
-  sha256 = "00nq36ddh772jd6135qljwnvkys372dja1nilkny1172lavkl3yj";
+  rev = "v20.09";
+  sha256 = "0h5givlrnr2qr4547h0lf4advmkizl71vgfsiyx94hz6f2k6p715";
 in stdenv.mkDerivation {
-  name = "CIL-${rev}";
+  name = "CCPi-RGL-${rev}";
 
   src = fetchFromGitHub {
     owner = "vais-ral";
-    repo = "CCPi-Framework";
+    repo = "CCPi-Regularisation-Toolkit";
     inherit rev sha256;
   };
 
-  buildInputs = [ cmake python3 ];
+  buildInputs = [ cmake python3 setuptools cython ];
+  propagatedBuildInputs = [ numpy ];
 
   CIL_VERSION = rev;
   preConfigure = ''

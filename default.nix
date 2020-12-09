@@ -13,7 +13,16 @@ rec {
     #boost = boost164;
   };
   petmr-rd-tools = callPackage ./pkgs/petmr-rd-tools {};
+
   cil = callPackage ./pkgs/cil {};
+  ccpiReg = callPackage ./pkgs/ccpi-regularisation {
+    inherit (pythonPackages) setuptools cython numpy;
+  };
+
+  tomophantom = callPackage ./pkgs/tomophantom {
+    inherit (pythonPackages) cython numpy;
+  };
+
   stir = callPackage ./pkgs/stir { inherit (pythonPackages) python numpy; };
   sirf = callPackage ./pkgs/sirf {
     inherit pythonPackages fftw fftwFloat niftyreg ismrmrd gadgetron petmr-rd-tools stir;
