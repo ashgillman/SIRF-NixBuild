@@ -23,6 +23,17 @@ rec {
     inherit (pythonPackages) cython numpy;
   };
 
+  brainweb = callPackage ./pkgs/brainweb {
+    inherit (pythonPackages)
+      fetchPypi
+      buildPythonPackage
+      tqdm
+      requests
+      numpy
+      scikitimage
+      matplotlib;
+  };
+
   stir = callPackage ./pkgs/stir { inherit (pythonPackages) python numpy; };
   sirf = callPackage ./pkgs/sirf {
     inherit pythonPackages fftw fftwFloat niftyreg ismrmrd gadgetron petmr-rd-tools stir;
