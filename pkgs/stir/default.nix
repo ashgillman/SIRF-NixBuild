@@ -58,14 +58,14 @@ in stdenv.mkDerivation rec {
   preConfigure = stdenv.lib.optionalString buildPython ''
     cmakeFlags="-DPYTHON_DEST=$out/${python.sitePackages} $cmakeFlags"
   '';
-  postInstall = ''
-    # add scripts to bin
-    find $src/scripts -type f ! -path "*maintenance*" -name "*.sh"  -exec cp -fn {} $out/bin \;
-    find $src/scripts -type f ! -path "*maintenance*" ! -name "*.*" -exec cp -fn {} $out/bin \;
+  # postInstall = ''
+  #   # add scripts to bin
+  #   find $src/scripts -type f ! -path "*maintenance*" -name "*.sh"  -exec cp -fn {} $out/bin \;
+  #   find $src/scripts -type f ! -path "*maintenance*" ! -name "*.*" -exec cp -fn {} $out/bin \;
 
-    # Remove the temporary build
-    rm -r $sourceRoot/build
-  '';
+  #   # Remove the temporary build
+  #   rm -r $sourceRoot/build
+  # '';
 
   pythonPath = "";  # Makes python.buildEnv include libraries
   enableParallelBuilding = true;
