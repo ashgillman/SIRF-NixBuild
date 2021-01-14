@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "UCL";
     repo = "petmr-rd-tools";
-    rev = "b88281f";  # 20180307
-    sha256 = "1pxa9j4hy5vwdarcilfxfn7kd51gcfp2jgh7m4h5bnvxdfb8i1lq";
+    rev = "v2.0.1";
+    sha256 = "0fc77i6li7bhrymmkg678nd3nhb7j1nbqxvmw6qg98xkg5xlsgn2";
   };
 
   enableParallelBuilding = true;
